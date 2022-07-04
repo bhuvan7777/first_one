@@ -1,0 +1,161 @@
+<!-- <!-- <html>
+    <head>
+        <title> HomePage </title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <!-- <style>
+            .heading{
+                background-color: aqua;
+                
+            }
+
+            #head{
+                background-color: violet;
+            }
+
+        </style>
+    </head>
+    <body>
+       <h1 class="heading" id ="head"> Welcome Bro.</h1>
+       <p class="heading" id="head">some text</p>
+    </body>
+</html> --> 
+
+<!-- <html>
+    <head>
+        <title>
+            Home Page
+        </title>
+        <style>
+
+
+        </style>
+    </head>
+    <body>
+        <button onclick="getData()">Show Data</button>
+        <div id="info">
+
+        </div>
+        <script>
+            let url = 'https://jsonplaceholder.typicode.com/users';
+// asynchronous programming , make requests to all the servers instead of waiting for 
+// the response from one server to move further. as we do not know how much time the server will take 
+// and we have to display something on the page. AJAX
+
+        
+            async function getData(){
+                //checking whether url is accessible or not
+                let response = await fetch(url);
+                //after that wait unitil data is converted into json
+                let data = await response.json();
+                console.log(response);
+                console.log(data);
+                
+                //element object is the representation of 'info' div id.
+                let element = document.getElementById('info');
+                element.innerHTML = 'hello World';
+                element.innerHTML = showData(data);
+                console.log(element);
+
+            }
+            var j = -5;
+            function valueOfJ(){
+                j += 5;
+                return j;
+            }
+            function showData(data){
+                var h = '';
+                var x = 0;
+                
+                for (i=valueOfJ() ; i<data.length; i++){
+                    h += `<h4>${data[i].name}</h4>`
+                    x+=1;
+                    if(x==5){
+                        break;
+                    }   
+                }
+                
+
+
+                return h;
+            }
+
+        </script>
+
+    </body>
+
+</html> -->
+
+ <html>
+    <body>
+        <head>
+    <title>
+        API
+    </title>
+    </head>
+    <!-- <div>
+    <h4>Select State Code to View Total Confirmed Covid Cases</h4>
+    <button onclick="displayData()">C</button>
+    </div> -->
+    <button onclick="displayData()"> Show</button>
+    <h4>Select State Code to View Total Confirmed Covid Cases</h4>
+
+<select name="cars" id="covidCases" onchange="getSelected()">
+
+</select>
+    <div id="covidData">
+
+    </div>
+    <div id="case"></div>
+    <script>
+
+        let url = 'https://data.covid19india.org/v4/min/data.min.json'
+        // let response = await fetch(url);
+        // let data = await response.json();
+        // let element = document.getElementById('covidCases');
+        // element.innerHTML = showOptions(data);
+         
+    
+
+        async function displayData(){
+            let response = await fetch(url);
+            let data = await response.json();
+            console.log(data);
+            let element = document.getElementById('covidCases');
+            element.innerHTML = showOptions(data);
+        }
+        function showOptions(data){
+            var h = '<label for="cars">Choose a State:</label>'
+            var states = Object.keys(data)
+            console.log(states[1]);
+            totalLength = Object.keys(data).length;
+            console.log(Object.keys(data).length);
+            console.log(Object.keys(data));
+            for(i=0; i<totalLength; i++){
+                h += `<option value="${states[i]}">${states[i]}</option>`
+
+            }
+            return h;
+        }
+
+
+        function getSelected(){
+            let select = document.getElementById('covidCases');
+            var text = select.options[select.selectedIndex].text;
+            console.log(text);
+            // showDataOfSelected(text);
+            let elemente = document.getElementById('covidData');
+            elemente.innerHTML = `<h3>You selected ${text}</h3>`;
+         }
+
+
+// let element = document.getElementById('covidData');
+// element.innerHTML = `<h4>${url.results[0].gender}</h4>`
+
+
+
+
+
+    </script>
+    </body>
+
+ </html>
